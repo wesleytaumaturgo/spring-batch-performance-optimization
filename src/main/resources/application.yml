@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: spring-batch-performance-optimization
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/batchdb}
+    username: ${DB_USER:batch}
+    password: ${DB_PASS:batch}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 500
+        order_inserts: true
+        order_updates: true
+
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+benchmark:
+  record-count: 100000
+  chunk-size: 500
+  thread-count: 8
+  grid-size: 8
+
+logging:
+  level:
+    com.wesleytaumaturgo.batch: INFO
+    org.springframework.batch: WARN

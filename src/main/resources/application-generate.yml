@@ -1,0 +1,6 @@
+benchmark:
+  record-count: 1000000
+
+logging:
+  level:
+    com.wesleytaumaturgo.batch.generator: INFO
